@@ -1,11 +1,8 @@
-const path = require("path");
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
-  },
-};
+const withTM = require("next-transpile-modules")(["ui"]);
 
-module.exports = nextConfig;
+module.exports = withTM({
+  reactStrictMode: true,
+  images: {
+    domains: ["aanay.pythonanywhere.com"],
+  },
+});

@@ -46,7 +46,12 @@ const Home: NextPage = () => {
         />
       </Head>
       <div className="content-wrap" id="about-me">
-        <Image src={"/icon.png"} width={80} height={100} alt="Icon" />
+        <Image
+          src={`${process.env.NEXT_PUBLIC_SERVER_URL}/media/default/avatar.png`}
+          width={80}
+          height={100}
+          alt="Icon"
+        />
         <h1 className="name">Prakash Pun</h1>
         <h2 className="title">Software Developer</h2>
       </div>
