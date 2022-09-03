@@ -2,11 +2,14 @@ import { useState } from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Head from "next/head";
-// import { getSession } from "next-auth/client";
 import toast, { Toaster } from "react-hot-toast";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { getToken } from "next-auth/jwt";
+import { sessionGet } from "../utils";
 
 const Login: NextPage = () => {
   const { data: session } = useSession();
+  console.log(session);
 
   const [data, setdata] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -82,8 +85,11 @@ const Login: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+  const one = await sessionGet(context.req);
+
+  console.log("one", one);
   if (session) {
     // ctx.res.writeHead(302, { Location: "/" });
     // ctx.res.end();

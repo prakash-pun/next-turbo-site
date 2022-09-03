@@ -1,10 +1,10 @@
-import NextAuth from "next-auth";
-import CredentialProvider from "next-auth/providers/credentials";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import axios from "axios";
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
-    CredentialProvider({
+    Credentials({
       name: "Login Credentials",
       credentials: {
         email: { label: "Email", type: "text" },
@@ -21,7 +21,7 @@ export default NextAuth({
             access: response?.data.access,
           };
           if (response.data) {
-            return { data };
+            return { ...data, email: credentials?.email };
           } else {
             return null;
           }
@@ -35,13 +35,20 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    jwt: async ({ token, data }: any) => {
-      data && (token.access = data.access);
+    jwt: async ({ token, user }: any) => {
+      console.log("user", user);
+      if (user) {
+        token.access = user.access;
+      }
       return token;
     },
     session: async ({ session, token }: any) => {
-      token && (session.access = token.access); // Setting token in session
-      return session;
+      console.log("session here next auth:", session, token);
+      if (token) {
+        session.access = token.access;
+        console.log("test session", session);
+      }
+      return Promise.resolve(session);
     },
   },
   pages: {
@@ -51,59 +58,6 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
-});
-// import NextAuth from "next-auth";
-// import CredentialProvider from "next-auth/providers/credentials";
+};
 
-// export default NextAuth({
-//   providers: [
-//     CredentialProvider({
-//       name: "credentials",
-//       credentials: {
-//         email: {
-//           label: "Email",
-//           type: "text",
-//           placeholder: "johndoe@test.com",
-//         },
-//         password: { label: "Password", type: "password" },
-//       },
-//       authorize: (credentials) => {
-//         // database look up
-//         if (credentials?.email === "john" && credentials?.password === "test") {
-//           return {
-//             id: 2,
-//             name: "John",
-//             email: "johndoe@test.com",
-//           };
-//         }
-
-//         // login failed
-//         return null;
-//       },
-//     }),
-//   ],
-//   callbacks: {
-//     jwt: ({ token, user }) => {
-//       // first time jwt callback is run, user object is available
-//       if (user) {
-//         token.id = user.id;
-//       }
-
-//       return token;
-//     },
-//     session: ({ session, token }) => {
-//       if (token) {
-//         session.id = token.id;
-//       }
-
-//       return session;
-//     },
-//   },
-//   secret: "test",
-//   jwt: {
-//     secret: "test",
-//   },
-//   pages: {
-//     signIn: "auth/sigin",
-//   },
-// });
+export default NextAuth(authOptions);
