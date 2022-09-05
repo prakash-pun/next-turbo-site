@@ -1,5 +1,5 @@
-import Head from "next/head";
 import React from "react";
+import Head from "next/head";
 import { PdfViewer } from "../components";
 
 const Resume = () => {
@@ -15,7 +15,6 @@ const Resume = () => {
         />
       </Head>
       <div className="resume">
-        <button className="download-btn">Download Resume</button>
         <PdfViewer />
       </div>
     </>

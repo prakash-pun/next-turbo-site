@@ -1,7 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-}
+const withTM = require("next-transpile-modules")(["ui"]);
 
-module.exports = nextConfig
+module.exports = withTM({
+  reactStrictMode: true,
+  images: {
+    domains: ["aanay.pythonanywhere.com"],
+  },
+});
