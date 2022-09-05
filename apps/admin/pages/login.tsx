@@ -1,16 +1,14 @@
 import { useState } from "react";
 import type { GetServerSideProps, NextPage } from "next";
-import { getSession, signIn, useSession } from "next-auth/react";
 import Head from "next/head";
+import { signIn } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth";
 import toast, { Toaster } from "react-hot-toast";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { getToken } from "next-auth/jwt";
-import { sessionGet } from "../utils";
+import { useRouter } from "next/router";
 
 const Login: NextPage = () => {
-  const { data: session } = useSession();
-  console.log(session);
-
+  const router = useRouter();
   const [data, setdata] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const handleLogin = async (e: any) => {
@@ -19,14 +17,20 @@ const Login: NextPage = () => {
     const response = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      callbackUrl: "/login",
+      callbackUrl: `/`,
       redirect: false,
     });
     setLoading(false);
     if (response?.error) {
       toast.error(response.error);
     }
+    if (response?.ok) {
+      router.push("/");
+    }
   };
+
+  const disabled = data.email === "" && data.password === "";
+
   return (
     <>
       <Head>
@@ -74,6 +78,7 @@ const Login: NextPage = () => {
             <button
               className="mt-6 h-10 w-full rounded-md bg-black px-6 font-semibold text-white"
               type="submit"
+              disabled={disabled}
             >
               {loading ? "Loading..." : "Sign in to account"}
             </button>
@@ -85,14 +90,13 @@ const Login: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await getSession(context);
-  const one = await sessionGet(context.req);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req, res } = context;
+  const session = await unstable_getServerSession(req, res, authOptions);
 
-  console.log("one", one);
   if (session) {
-    // ctx.res.writeHead(302, { Location: "/" });
-    // ctx.res.end();
+    context.res.writeHead(302, { Location: "/" });
+    context.res.end();
     return { props: { session } };
   }
   return {

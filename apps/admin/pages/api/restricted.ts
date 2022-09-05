@@ -9,8 +9,6 @@ export default async function handler(
 ) {
   const session = await unstable_getServerSession(req, res, authOptions);
 
-  console.log("restricted", session);
-
   if (session) {
     return res.send({
       content:

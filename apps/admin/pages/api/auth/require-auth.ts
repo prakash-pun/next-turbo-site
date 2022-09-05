@@ -1,18 +1,16 @@
-import type { GetServerSideProps, GetServerSidePropsContext } from "next";
+import type { GetServerSidePropsContext } from "next";
 import { unstable_getServerSession } from "next-auth";
-
 import { authOptions } from "./[...nextauth]";
 
+type RequireAuth = (ctx: GetServerSidePropsContext, session: any) => void;
+
 export const requireAuth =
-  (func: GetServerSideProps) => async (ctx: GetServerSidePropsContext) => {
+  (func: RequireAuth) => async (ctx: GetServerSidePropsContext) => {
     const session = await unstable_getServerSession(
       ctx.req,
       ctx.res,
       authOptions
     );
-
-    // console.log("home", session);
-
     if (!session) {
       return {
         redirect: {
@@ -22,5 +20,5 @@ export const requireAuth =
       };
     }
 
-    return await func(ctx);
+    return await func(ctx, session);
   };

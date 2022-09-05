@@ -1,15 +1,11 @@
 import type { NextPage } from "next";
+import { signOut } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
+import { requireAuth } from "./api/auth/require-auth";
 
-// import { requireAuth } from "./api/auth/require-auth";
-
-// export const getServerSideProps = requireAuth(async (ctx) => {
-//   return { props: {} };
-// });
-
-const Home: NextPage = () => {
+const Home: NextPage<any> = ({ session }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -19,24 +15,25 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        {session && (
+          <button
+            onClick={() =>
+              signOut({ callbackUrl: `${window.location.origin}` })
+            }
+          >
+            Sign Out
+          </button>
+        )}
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://prakashpun.com.np"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   );
 };
 
 export default Home;
+
+export const getServerSideProps = requireAuth(async (ctx, session) => {
+  return { props: { session } };
+});

@@ -21,7 +21,12 @@ export const authOptions: NextAuthOptions = {
             access: response?.data.access,
           };
           if (response.data) {
-            return { ...data, email: credentials?.email };
+            return {
+              ...data,
+              email: credentials?.email,
+              name: null,
+              image: null,
+            };
           } else {
             return null;
           }
@@ -36,28 +41,24 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     jwt: async ({ token, user }: any) => {
-      console.log("user", user);
       if (user) {
         token.access = user.access;
       }
       return token;
     },
     session: async ({ session, token }: any) => {
-      console.log("session here next auth:", session, token);
       if (token) {
         session.access = token.access;
-        console.log("test session", session);
+        delete session.expires;
       }
-      return Promise.resolve(session);
+      return session;
     },
   },
   pages: {
     signIn: "/login", //Need to define custom login page (if using)
     error: "/login",
   },
-  session: {
-    strategy: "jwt",
-  },
+  secret: process.env.NEXT_PUBLIC_SECRET,
 };
 
 export default NextAuth(authOptions);

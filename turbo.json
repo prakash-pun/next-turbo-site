@@ -12,5 +12,9 @@
       "cache": false
     }
   },
-  "globalDependencies": ["$GITHUB_TOKEN", "$NEXT_PUBLIC_SERVER_URL"]
+  "globalDependencies": [
+    "$GITHUB_TOKEN",
+    "$NEXT_PUBLIC_SERVER_URL",
+    "$NEXT_PUBLIC_SECRET"
+  ]
 }
