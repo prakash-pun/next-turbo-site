@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { signOut } from "next-auth/react";
 import Head from "next/head";
-import Image from "next/image";
+import { Header, HeaderThree, HeaderTwo, Sidebar } from "ui";
 import styles from "../styles/Home.module.scss";
 import { requireAuth } from "./api/auth/require-auth";
 
@@ -15,6 +15,10 @@ const Home: NextPage<any> = ({ session }) => {
       </Head>
 
       <main className={styles.main}>
+        <Header />
+        <Sidebar />
+        <HeaderTwo />
+        <HeaderThree />
         {session && (
           <button
             onClick={() =>

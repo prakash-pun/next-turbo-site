@@ -29,7 +29,7 @@ const Login: NextPage = () => {
     }
   };
 
-  const disabled = data.email === "" && data.password === "";
+  const disabled = data.email === "" || data.password === "";
 
   return (
     <>
@@ -99,6 +99,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     context.res.end();
     return { props: { session } };
   }
+
   return {
     props: {},
   };

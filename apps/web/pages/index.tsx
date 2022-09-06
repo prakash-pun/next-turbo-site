@@ -51,6 +51,7 @@ const Home: NextPage = () => {
           width={80}
           height={100}
           alt="Icon"
+          loading="lazy"
         />
         <h1 className="name">Prakash Pun</h1>
         <h2 className="title">Software Developer</h2>
