@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { signOut } from "next-auth/react";
 import Head from "next/head";
-import { Header, HeaderThree, HeaderTwo, Sidebar } from "ui";
+import { withDashboard } from "../hoc";
 import styles from "../styles/Home.module.scss";
 import { requireAuth } from "./api/auth/require-auth";
 
@@ -13,30 +13,18 @@ const Home: NextPage<any> = ({ session }) => {
         <meta name="description" content="Prakash Pun - Home" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <Header />
-        <Sidebar />
-        <HeaderTwo />
-        <HeaderThree />
-        {session && (
-          <button
-            onClick={() =>
-              signOut({ callbackUrl: `${window.location.origin}` })
-            }
-          >
-            Sign Out
-          </button>
-        )}
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <main>
+        <div className="mx-auto max-w-7xl py-2 sm:px-6 lg:px-8">
+          <div className="px-4 sm:px-0">
+            <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
+          </div>
+        </div>
       </main>
     </div>
   );
 };
 
-export default Home;
+export default withDashboard(Home);
 
 export const getServerSideProps = requireAuth(async (ctx, session) => {
   return { props: { session } };

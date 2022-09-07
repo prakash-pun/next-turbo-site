@@ -1,15 +1,13 @@
-import { useContext } from "react";
 import type { NextPage } from "next";
-import { signOut } from "next-auth/react";
 import Head from "next/head";
-import Image from "next/image";
 import { requireAuth } from "../api/auth/require-auth";
 import { listTeams } from "../../services";
 import { TeamAvatar } from "ui";
+import { withDashboard } from "../../hoc";
 
 const Teams: NextPage<any> = ({ teams }) => {
   return (
-    <div className="bg-white">
+    <>
       <Head>
         <title>Prakash Pun - Home</title>
         <meta name="description" content="Prakash Pun - Home" />
@@ -18,9 +16,9 @@ const Teams: NextPage<any> = ({ teams }) => {
 
       <main>
         <section>
-          <header className="space-y-4 bg-white p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
+          <header className="space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
             <div className="flex items-center justify-between">
-              <h2 className="font-semibold text-slate-900">Teams</h2>
+              <h2 className="font-semibold text-slate-200">Teams</h2>
               <a
                 href="/new"
                 className="group flex items-center rounded-md bg-blue-500 py-2 pl-2 pr-3 text-sm font-medium text-white shadow-sm hover:bg-blue-400"
@@ -59,7 +57,7 @@ const Teams: NextPage<any> = ({ teams }) => {
               />
             </form>
           </header>
-          <ul className="grid grid-cols-1 gap-4 bg-slate-50 p-4 text-sm leading-6 sm:grid-cols-2 sm:px-8 sm:pt-6 sm:pb-8 lg:grid-cols-1 lg:p-4 xl:grid-cols-2 xl:px-8 xl:pt-6 xl:pb-8">
+          <ul className="grid grid-cols-1 gap-4 p-4 text-sm leading-6 sm:grid-cols-2 sm:px-8 sm:pt-6 sm:pb-8 lg:grid-cols-1 lg:p-4 xl:grid-cols-2 xl:px-8 xl:pt-6 xl:pb-8">
             {teams && teams.length
               ? teams.map((data: any) => (
                   <li key={data.id}>
@@ -70,7 +68,7 @@ const Teams: NextPage<any> = ({ teams }) => {
                       <dl className="grid grid-cols-2 grid-rows-2 items-center sm:block lg:grid xl:block">
                         <div>
                           <dt className="sr-only">{data.team_name}</dt>
-                          <dd className="font-semibold text-slate-900 group-hover:text-white">
+                          <dd className="font-semibold text-slate-100 group-hover:text-white">
                             {data.team_name}
                           </dd>
                         </div>
@@ -97,7 +95,7 @@ const Teams: NextPage<any> = ({ teams }) => {
             <li className="flex">
               <a
                 href="/new"
-                className="group flex w-full flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 py-3 text-sm font-medium leading-6 text-slate-900 hover:border-solid hover:border-blue-500 hover:bg-white hover:text-blue-500"
+                className="group flex w-full flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 py-3 text-sm font-medium leading-6 text-slate-50 hover:border-solid hover:border-blue-500 hover:bg-white hover:text-blue-500"
               >
                 <svg
                   className="mb-1 text-slate-400 group-hover:text-blue-500"
@@ -114,11 +112,11 @@ const Teams: NextPage<any> = ({ teams }) => {
           </ul>
         </section>
       </main>
-    </div>
+    </>
   );
 };
 
-export default Teams;
+export default withDashboard(Teams);
 
 export const getServerSideProps = requireAuth(async (ctx, session) => {
   const response = await listTeams({ name: "List Team", session });
