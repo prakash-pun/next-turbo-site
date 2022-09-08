@@ -4,6 +4,7 @@ import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { signIn } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
 import toast from "react-hot-toast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
@@ -134,12 +135,14 @@ const SignIn: NextPage = () => {
               </div>
 
               <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot your password?
-                </a>
+                <Link href={"/forgot-password"}>
+                  <a
+                    href="/forgot-password"
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Forgot your password?
+                  </a>
+                </Link>
               </div>
             </div>
 

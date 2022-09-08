@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.0",
-    "@heroicons/react": "^2.0.10"
+    "@heroicons/react": "^2.0.10",
+    "next": "^12.2.5"
   }
 }

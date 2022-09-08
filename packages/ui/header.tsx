@@ -6,6 +6,7 @@ import {
   BellIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const user = {
   name: "Tom Cook",
@@ -20,8 +21,8 @@ const classNames = (...classes: string[]) => {
 
 const navigation = {
   pages: [
-    { name: "Team", href: "#", current: true },
-    { name: "Projects", href: "#", current: false },
+    { name: "Team", href: "/team", current: true },
+    { name: "Projects", href: "/projects", current: false },
   ],
 };
 
@@ -76,37 +77,43 @@ export const Header: React.FC<any> = ({ signOut }) => {
                 <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
-                      <a
-                        href={page.href}
-                        className={classNames(
-                          page.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                      >
-                        {page.name}
-                      </a>
+                      <Link href={page.href}>
+                        <a
+                          href={page.href}
+                          className={classNames(
+                            page.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium"
+                          )}
+                        >
+                          {page.name}
+                        </a>
+                      </Link>
                     </div>
                   ))}
                 </div>
 
                 <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                   <div className="flow-root">
-                    <a
-                      href="#"
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                    >
-                      Settings
-                    </a>
+                    <Link href={"/settings"}>
+                      <a
+                        href="#"
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Settings
+                      </a>
+                    </Link>
                   </div>
                   <div className="flow-root">
-                    <a
-                      href="#"
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                    >
-                      Profile
-                    </a>
+                    <Link href={"/profile"}>
+                      <a
+                        href="/profile"
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Profile
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </Dialog.Panel>
@@ -133,27 +140,31 @@ export const Header: React.FC<any> = ({ signOut }) => {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="/">
-                  <span className="sr-only">Your Company</span>
-                  <img
-                    className="h-8 w-auto"
-                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/media/default/avatar.png`}
-                    alt="My Componay Logo"
-                  />
-                </a>
+                <Link href={"/"}>
+                  <a href="/">
+                    <span className="sr-only">Your Company</span>
+                    <img
+                      className="h-8 w-auto"
+                      src={`${process.env.NEXT_PUBLIC_SERVER_URL}/media/default/avatar.png`}
+                      alt="My Componay Logo"
+                    />
+                  </a>
+                </Link>
               </div>
 
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
                   {navigation.pages.map((page) => (
-                    <a
-                      key={page.name}
-                      href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-300 hover:text-gray-800"
-                    >
-                      {page.name}
-                    </a>
+                    <Link href={page.href}>
+                      <a
+                        key={page.name}
+                        href={page.href}
+                        className="flex items-center text-sm font-medium text-gray-300 hover:text-gray-800"
+                      >
+                        {page.name}
+                      </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Group>
@@ -202,16 +213,18 @@ export const Header: React.FC<any> = ({ signOut }) => {
                       {userNavigation.map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
-                            <a
-                              onClick={item.name === "Sign out" && signOut}
-                              href={item.href}
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              {item.name}
-                            </a>
+                            <Link href={item.href}>
+                              <a
+                                onClick={item.name === "Sign out" && signOut}
+                                href={item.href}
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                {item.name}
+                              </a>
+                            </Link>
                           )}
                         </Menu.Item>
                       ))}
