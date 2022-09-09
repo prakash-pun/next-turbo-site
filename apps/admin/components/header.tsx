@@ -1,5 +1,5 @@
-import { Fragment, useState } from "react";
-import { Dialog, Popover, Menu, Transition } from "@headlessui/react";
+import { Fragment, useState, useContext } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
@@ -7,13 +7,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
+import { UserContext } from "../context";
 
 const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -21,7 +15,7 @@ const classNames = (...classes: string[]) => {
 
 const navigation = {
   pages: [
-    { name: "Team", href: "/team", current: true },
+    { name: "Team", href: "/team", current: false },
     { name: "Projects", href: "/projects", current: false },
   ],
 };
@@ -34,6 +28,7 @@ const userNavigation = [
 
 export const Header: React.FC<any> = ({ signOut }) => {
   const [open, setOpen] = useState(false);
+  const { user } = useContext(UserContext);
 
   return (
     <div className="bg-white">
@@ -81,10 +76,8 @@ export const Header: React.FC<any> = ({ signOut }) => {
                         <a
                           href={page.href}
                           className={classNames(
-                            page.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "rounded-md px-3 py-2 text-sm font-medium"
+                            page.current ? "bg-gray-900" : "text-gray-800  ",
+                            "rounded-md py-2 text-sm font-bold hover:text-gray-600"
                           )}
                         >
                           {page.name}
@@ -153,10 +146,10 @@ export const Header: React.FC<any> = ({ signOut }) => {
               </div>
 
               {/* Flyout menus */}
-              <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
+              {/* <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
                   {navigation.pages.map((page) => (
-                    <Link href={page.href}>
+                    <Link href={page.href} key={page.name}>
                       <a
                         key={page.name}
                         href={page.href}
@@ -167,7 +160,7 @@ export const Header: React.FC<any> = ({ signOut }) => {
                     </Link>
                   ))}
                 </div>
-              </Popover.Group>
+              </Popover.Group> */}
 
               <div className="ml-auto flex items-center">
                 {/* Search */}
@@ -194,9 +187,9 @@ export const Header: React.FC<any> = ({ signOut }) => {
                     <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full"
-                        src={user.imageUrl}
-                        alt=""
+                        className="h-8 w-8 rounded-full "
+                        src={user.avatar}
+                        alt={user.username}
                       />
                     </Menu.Button>
                   </div>
@@ -219,7 +212,7 @@ export const Header: React.FC<any> = ({ signOut }) => {
                                 href={item.href}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                                  "block px-4 py-2 text-sm text-gray-700 hover:bg-violet-50"
                                 )}
                               >
                                 {item.name}

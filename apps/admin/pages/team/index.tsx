@@ -1,11 +1,18 @@
+import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { requireAuth } from "../api/auth/require-auth";
 import { listTeams } from "../../services";
 import { TeamAvatar } from "ui";
 import { withDashboard } from "../../hoc";
+import { Dropdown, SlideOver } from "../../components";
 
 const Teams: NextPage<any> = ({ teams }) => {
+  const [open, setOpen] = useState(true);
+
+  const handleOpen = () => {
+    setOpen(!open);
+  };
   return (
     <>
       <Head>
@@ -58,32 +65,36 @@ const Teams: NextPage<any> = ({ teams }) => {
             </form>
           </header>
           <ul className="grid grid-cols-1 gap-4 p-4 text-sm leading-6 sm:grid-cols-2 sm:px-8 sm:pt-6 sm:pb-8 lg:grid-cols-1 lg:p-4 xl:grid-cols-2 xl:px-8 xl:pt-6 xl:pb-8">
-            {teams && teams.length
+            {teams && teams?.length
               ? teams.map((data: any) => (
                   <li key={data.id}>
                     <a
-                      href="/new"
+                      onClick={handleOpen}
+                      href="#"
                       className="group flex w-full flex-col rounded-md border-2 border-slate-300 p-3 py-3 text-sm font-medium leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 hover:border-solid hover:border-blue-500  hover:bg-blue-500 hover:shadow-md hover:ring-blue-500"
                     >
-                      <dl className="grid grid-cols-2 grid-rows-2 items-center sm:block lg:grid xl:block">
+                      <dl className="grid grid-cols-2 grid-rows-1 items-center">
                         <div>
                           <dt className="sr-only">{data.team_name}</dt>
                           <dd className="font-semibold text-slate-100 group-hover:text-white">
                             {data.team_name}
                           </dd>
                         </div>
+                        <div className="col-start-2 row-start-1 ">
+                          <dt className="sr-only">dropdown</dt>
+                          <dd className="flex justify-end group-hover:text-blue-200">
+                            <Dropdown />
+                          </dd>
+                        </div>
                         <div>
                           <dt className="sr-only">Category</dt>
                           <dd className="group-hover:text-blue-200">
-                            {data.description || ""}
+                            {data.description || "this is it"}
                           </dd>
                         </div>
-                        <div className="col-start-2 row-start-1 row-end-3 sm:mt-4 lg:mt-0 xl:mt-4">
+                        <div className="col-start-2 row-start-2 row-end-3 sm:mt-4 lg:mt-0 xl:mt-2">
                           <dt className="sr-only">Users</dt>
-                          <dd
-                            x-for="user in project.users"
-                            className="flex justify-end -space-x-1.5 sm:justify-start lg:justify-end xl:justify-start"
-                          >
+                          <dd className="flex justify-end">
                             <TeamAvatar teamMembers={data.team_members} />
                           </dd>
                         </div>
@@ -111,6 +122,7 @@ const Teams: NextPage<any> = ({ teams }) => {
             </li>
           </ul>
         </section>
+        <SlideOver open={open} setOpen={handleOpen} />
       </main>
     </>
   );
@@ -121,6 +133,6 @@ export default withDashboard(Teams);
 export const getServerSideProps = requireAuth(async (ctx, session) => {
   const response = await listTeams({ name: "List Team", session });
 
-  const teams = response.data;
+  const teams = response?.data;
   return { props: { session, teams } };
 });

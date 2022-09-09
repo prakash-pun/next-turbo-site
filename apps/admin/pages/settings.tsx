@@ -1,11 +1,11 @@
 import React from "react";
-import { ProfileForm } from "../components";
+import { SettingForm } from "../components";
 import { withDashboard } from "../hoc";
 
 const Settings = () => {
   return (
     <div>
-      <ProfileForm />
+      <SettingForm />
     </div>
   );
 };

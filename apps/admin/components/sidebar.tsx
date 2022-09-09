@@ -18,13 +18,13 @@ const solutions = [
 const Sidebar = () => {
   return (
     <div
-      style={{ height: "calc(100vh - 66px)" }}
-      className=" hidden w-52 md:block md:space-x-8 md:pr-4"
+      style={{ height: "calc(100vh - 90px)" }}
+      className=" hidden md:block md:space-x-8 md:pr-4"
     >
       <div className="mt-6">
         <nav className="grid gap-y-8">
           {solutions.map((item) => (
-            <Link href={item.href}>
+            <Link href={item.href} key={item.name}>
               <a
                 key={item.name}
                 href={item.href}
