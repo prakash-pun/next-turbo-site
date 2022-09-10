@@ -19,7 +19,7 @@ const Sidebar = () => {
   return (
     <div
       style={{ height: "calc(100vh - 90px)" }}
-      className=" hidden md:block md:space-x-8 md:pr-4"
+      className="hidden md:block md:space-x-8 md:pr-4"
     >
       <div className="mt-6">
         <nav className="grid gap-y-8">

@@ -1,6 +1,7 @@
 import React from "react";
 import { signOut } from "next-auth/react";
 import { Header, Sidebar } from "../components";
+import { classNames } from "utils";
 
 const withDashboard = (
   WrappedComponent: React.ComponentType,
@@ -19,7 +20,12 @@ const withDashboard = (
       return (
         <div className="bg-gray-800">
           <Header signOut={this.handleSignout} />
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:grid md:grid-cols-5 md:gap-2 lg:px-8">
+          <div
+            className={classNames(
+              isProfile ? "grid grid-cols-5" : "md:grid md:grid-cols-5",
+              "mx-auto grid max-w-7xl grid-cols-5 px-4 sm:px-6 md:gap-2 lg:px-8"
+            )}
+          >
             {!isProfile && (
               <div className="md:col-span-1">
                 <Sidebar />

@@ -76,10 +76,10 @@ Learn more about the power of Turborepo:
 - [Configuration Options](https://turborepo.org/docs/reference/configuration)
 - [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
 
-```
-:tada: for initial commit
-:sparkles: for a new feature
-:bug: for a bug fix
-:books: for documentation
-:hammer: for code refactoring
-```
+- [Git Moji](https://gitmoji.dev/)
+
+:tada: for initial commit <br/>
+:sparkles: for a new feature <br/>
+:bug: for a bug fix <br/>
+:books: for documentation <br/>
+:hammer: for code refactoring <br/>

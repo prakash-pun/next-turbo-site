@@ -6,12 +6,14 @@ import { listTeams } from "../../services";
 import { TeamAvatar } from "ui";
 import { withDashboard } from "../../hoc";
 import { Dropdown, SlideOver } from "../../components";
+import Link from "next/link";
 
 const Teams: NextPage<any> = ({ teams }) => {
-  const [open, setOpen] = useState(true);
-
-  const handleOpen = () => {
+  const [open, setOpen] = useState(false);
+  const [members, setMembers] = useState([]);
+  const handleOpen = (data: any) => {
     setOpen(!open);
+    setMembers(data);
   };
   return (
     <>
@@ -26,21 +28,23 @@ const Teams: NextPage<any> = ({ teams }) => {
           <header className="space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
             <div className="flex items-center justify-between">
               <h2 className="font-semibold text-slate-200">Teams</h2>
-              <a
-                href="/new"
-                className="group flex items-center rounded-md bg-blue-500 py-2 pl-2 pr-3 text-sm font-medium text-white shadow-sm hover:bg-blue-400"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  className="mr-2"
-                  aria-hidden="true"
+              <Link href={"/team/create-team"}>
+                <a
+                  href="/team/create-team"
+                  className="group flex items-center rounded-md bg-blue-500 py-2 pl-2 pr-3 text-sm font-medium text-white shadow-sm hover:bg-blue-400"
                 >
-                  <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
-                </svg>
-                New
-              </a>
+                  <svg
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    className="mr-2"
+                    aria-hidden="true"
+                  >
+                    <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
+                  </svg>
+                  New
+                </a>
+              </Link>
             </div>
             <form className="group relative">
               <svg
@@ -69,7 +73,7 @@ const Teams: NextPage<any> = ({ teams }) => {
               ? teams.map((data: any) => (
                   <li key={data.id}>
                     <a
-                      onClick={handleOpen}
+                      onClick={() => handleOpen(data)}
                       href="#"
                       className="group flex w-full flex-col rounded-md border-2 border-slate-300 p-3 py-3 text-sm font-medium leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 hover:border-solid hover:border-blue-500  hover:bg-blue-500 hover:shadow-md hover:ring-blue-500"
                     >
@@ -89,7 +93,7 @@ const Teams: NextPage<any> = ({ teams }) => {
                         <div>
                           <dt className="sr-only">Category</dt>
                           <dd className="group-hover:text-blue-200">
-                            {data.description || "this is it"}
+                            {data.description || ""}
                           </dd>
                         </div>
                         <div className="col-start-2 row-start-2 row-end-3 sm:mt-4 lg:mt-0 xl:mt-2">
@@ -104,25 +108,27 @@ const Teams: NextPage<any> = ({ teams }) => {
                 ))
               : null}
             <li className="flex">
-              <a
-                href="/new"
-                className="group flex w-full flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 py-3 text-sm font-medium leading-6 text-slate-50 hover:border-solid hover:border-blue-500 hover:bg-white hover:text-blue-500"
-              >
-                <svg
-                  className="mb-1 text-slate-400 group-hover:text-blue-500"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  aria-hidden="true"
+              <Link href={"/team/create-team"}>
+                <a
+                  href="/team/create-team"
+                  className="group flex w-full flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 py-3 text-sm font-medium leading-6 text-slate-50 hover:border-solid hover:border-blue-500 hover:bg-white hover:text-blue-500"
                 >
-                  <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
-                </svg>
-                New Team
-              </a>
+                  <svg
+                    className="mb-1 text-slate-400 group-hover:text-blue-500"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
+                  </svg>
+                  New Team
+                </a>
+              </Link>
             </li>
           </ul>
         </section>
-        <SlideOver open={open} setOpen={handleOpen} />
+        <SlideOver open={open} setOpen={handleOpen} members={members} />
       </main>
     </>
   );

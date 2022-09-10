@@ -18,7 +18,8 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.3.0",
     "sass": "^1.54.8",
-    "ui": "*"
+    "ui": "*",
+    "utils": "*"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

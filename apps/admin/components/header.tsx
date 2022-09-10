@@ -7,11 +7,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { classNames } from "utils";
 import { UserContext } from "../context";
-
-const classNames = (...classes: string[]) => {
-  return classes.filter(Boolean).join(" ");
-};
 
 const navigation = {
   pages: [
@@ -118,7 +115,7 @@ export const Header: React.FC<any> = ({ signOut }) => {
       <header className="relative bg-gray-800">
         <nav
           aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+          className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8"
         >
           <div className="border-b border-gray-600">
             <div className="flex h-16 items-center">
