@@ -1,10 +1,10 @@
 import { useState } from "react";
-import type { GetServerSideProps, NextPage } from "next";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Head from "next/head";
-import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]";
 import Link from "next/link";
+import type { GetServerSideProps, NextPage } from "next";
+import { unstable_getServerSession } from "next-auth";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 const ForgotPassword: NextPage = () => {
   const [email, setEmail] = useState("");

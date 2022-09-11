@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
-import { ProfileTab } from "../components";
-import { UserContext } from "../context";
-import { withDashboard } from "../hoc";
+import { ProfileTab } from "@components";
+import { UserContext } from "@context";
+import { withDashboard } from "@hoc";
 
 const Profile = () => {
   const { user } = useContext(UserContext);

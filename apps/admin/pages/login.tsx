@@ -1,12 +1,12 @@
 import { useState } from "react";
 import type { GetServerSideProps, NextPage } from "next";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { signIn } from "next-auth/react";
+import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import { signIn } from "next-auth/react";
 import { unstable_getServerSession } from "next-auth";
 import toast from "react-hot-toast";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { authOptions } from "./api/auth/[...nextauth]";
 

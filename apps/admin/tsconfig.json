@@ -1,4 +1,16 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@auth": ["pages/api/auth/require-auth.ts"],
+      "@components": ["components/index.tsx"],
+      "@context": ["context/index.tsx"],
+      "@helpers": ["helpers/index.ts"],
+      "@hoc": ["hoc/index.tsx"],
+      "@services": ["services/index.ts"],
+      "@interfaces": ["interfaces/index.ts"]
+    }
+  },
   "extends": "tsconfig/nextjs.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

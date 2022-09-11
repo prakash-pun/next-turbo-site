@@ -1,6 +1,6 @@
 import React from "react";
-import { SettingForm } from "../components";
-import { withDashboard } from "../hoc";
+import { SettingForm } from "@components";
+import { withDashboard } from "@hoc";
 
 const Settings = () => {
   return (

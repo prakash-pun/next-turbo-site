@@ -2,7 +2,9 @@ export const SettingForm = () => {
   return (
     <>
       <div className="mt-2">
-        <h3 className="text-lg font-medium leading-6 text-gray-200">Profile</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-200">
+          Account Setting
+        </h3>
         <div className="mt-2">
           <form action="#" method="POST">
             <div className="shadow sm:overflow-hidden sm:rounded-md">

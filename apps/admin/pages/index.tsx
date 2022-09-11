@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
-import { signOut } from "next-auth/react";
 import Head from "next/head";
-import { withDashboard } from "../hoc";
+import { withDashboard } from "@hoc";
 import styles from "../styles/Home.module.scss";
-import { requireAuth } from "./api/auth/require-auth";
+import { requireAuth } from "@auth";
 
 const Home: NextPage<any> = ({ session }) => {
   return (
@@ -15,7 +14,6 @@ const Home: NextPage<any> = ({ session }) => {
       </Head>
       <main>
         <div className="mx-auto max-w-7xl py-2 sm:px-6 lg:px-8">
-          {/* <div className="py-2"> */}
           <div className="px-4 sm:px-0">
             <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
           </div>

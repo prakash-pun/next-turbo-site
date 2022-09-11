@@ -1,20 +1,31 @@
 import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { requireAuth } from "../api/auth/require-auth";
-import { listTeams } from "../../services";
-import { TeamAvatar } from "ui";
-import { withDashboard } from "../../hoc";
-import { Dropdown, SlideOver } from "../../components";
 import Link from "next/link";
+import { Dropdown, SlideOver } from "@components";
+import { listTeams } from "@services";
+import { withDashboard } from "@hoc";
+import { requireAuth } from "@auth";
+import { TeamAvatar } from "ui";
+import { useRouter } from "next/router";
 
 const Teams: NextPage<any> = ({ teams }) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [members, setMembers] = useState([]);
   const handleOpen = (data: any) => {
     setOpen(!open);
     setMembers(data);
   };
+
+  const editTeam = (slug: string) => {
+    router.push(`/team/${slug}/update-team`);
+  };
+
+  const addTeamMember = (slug: string) => {
+    router.push(`/team/${slug}/add-member`);
+  };
+
   return (
     <>
       <Head>
@@ -25,7 +36,7 @@ const Teams: NextPage<any> = ({ teams }) => {
 
       <main>
         <section>
-          <header className="space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
+          <header className="space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-1">
             <div className="flex items-center justify-between">
               <h2 className="font-semibold text-slate-200">Teams</h2>
               <Link href={"/team/create-team"}>
@@ -42,7 +53,7 @@ const Teams: NextPage<any> = ({ teams }) => {
                   >
                     <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
                   </svg>
-                  New
+                  New Team
                 </a>
               </Link>
             </div>
@@ -72,11 +83,7 @@ const Teams: NextPage<any> = ({ teams }) => {
             {teams && teams?.length
               ? teams.map((data: any) => (
                   <li key={data.id}>
-                    <a
-                      onClick={() => handleOpen(data)}
-                      href="#"
-                      className="group flex w-full flex-col rounded-md border-2 border-slate-300 p-3 py-3 text-sm font-medium leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 hover:border-solid hover:border-blue-500  hover:bg-blue-500 hover:shadow-md hover:ring-blue-500"
-                    >
+                    <div className="group flex w-full flex-col rounded-md border-2 border-slate-300 p-3 py-3 text-sm font-medium leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 hover:border-solid hover:border-blue-500  hover:bg-blue-500 hover:shadow-md hover:ring-blue-500">
                       <dl className="grid grid-cols-2 grid-rows-1 items-center">
                         <div>
                           <dt className="sr-only">{data.team_name}</dt>
@@ -87,12 +94,16 @@ const Teams: NextPage<any> = ({ teams }) => {
                         <div className="col-start-2 row-start-1 ">
                           <dt className="sr-only">dropdown</dt>
                           <dd className="flex justify-end group-hover:text-blue-200">
-                            <Dropdown />
+                            <Dropdown
+                              handleView={() => handleOpen(data)}
+                              editTeam={() => editTeam(data.slug)}
+                              addTeamMember={() => addTeamMember(data.slug)}
+                            />
                           </dd>
                         </div>
                         <div>
                           <dt className="sr-only">Category</dt>
-                          <dd className="group-hover:text-blue-200">
+                          <dd className="text-gray-500 group-hover:text-blue-200">
                             {data.description || ""}
                           </dd>
                         </div>
@@ -103,7 +114,7 @@ const Teams: NextPage<any> = ({ teams }) => {
                           </dd>
                         </div>
                       </dl>
-                    </a>
+                    </div>
                   </li>
                 ))
               : null}
@@ -138,7 +149,12 @@ export default withDashboard(Teams);
 
 export const getServerSideProps = requireAuth(async (ctx, session) => {
   const response = await listTeams({ name: "List Team", session });
-
-  const teams = response?.data;
-  return { props: { session, teams } };
+  let teams: any;
+  if (response.status === "success") {
+    teams = response?.data;
+    return { props: { session, teams } };
+  } else {
+    teams = [];
+    return { props: { session, teams } };
+  }
 });

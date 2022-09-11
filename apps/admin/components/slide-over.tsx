@@ -1,6 +1,10 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  ArrowTopRightOnSquareIcon,
+} from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
   return (
@@ -32,11 +36,13 @@ export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                   <div className="flex h-full flex-col bg-white shadow-xl">
-                    {/* <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"> */}
                     <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                       <div className="flex items-start justify-between">
-                        <Dialog.Title className="text-lg font-medium text-gray-900">
+                        <Dialog.Title className="flex items-center text-lg font-medium text-gray-900">
                           {members.team_name}
+                          <a target="__blank" href={members.website}>
+                            <ArrowTopRightOnSquareIcon className="ml-2 h-5 w-5 text-gray-800 hover:text-gray-500" />
+                          </a>
                         </Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
@@ -50,8 +56,16 @@ export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
                         </div>
                       </div>
 
-                      <div className="mt-8">
-                        <div className="flow-root">
+                      <div className="mt-2">
+                        <Link href={`/team/${members.slug}/add-member`}>
+                          <a
+                            href={`/team/${members.slug}/addMember`}
+                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                          >
+                            Add New Member
+                          </a>
+                        </Link>
+                        <div className="mt-2 flow-root">
                           <ul
                             role="list"
                             className="-my-6 divide-y divide-gray-200"
