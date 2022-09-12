@@ -37,7 +37,6 @@ axiosInstance.interceptors.response.use(
           refreshToken: "getRefreshToken()",
         })
         .then((response: any) => {
-          // setJwtToken(response.data.access);
           originalRequest.headers.Authorization = `Bearer ${response.data.accesstoken}`;
           window.location.reload();
 

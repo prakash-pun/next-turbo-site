@@ -8,12 +8,14 @@ import {
   postData,
 } from "./base.service";
 
-const listTeams = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
+const getTeamMember = async (
+  repo: ApiParameters
+): Promise<GetApiDataResponse> => {
   const apiPath = getApiPath({
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/team/prakashpun/`;
+  const api = `${apiPath}/team-member-detail/${repo?.endpoint}/${repo?.params}`;
   try {
     const token = repo?.session.access;
     const config: AxiosRequestConfig = {
@@ -37,12 +39,14 @@ const listTeams = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
   }
 };
 
-const addNewTeam = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
+const addTeamMember = async (
+  repo: ApiParameters
+): Promise<GetApiDataResponse> => {
   const apiPath = getApiPath({
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/create-team/`;
+  const api = `${apiPath}/team-member/${repo.endpoint}`;
   try {
     const token = repo?.session.access;
     const config: AxiosRequestConfig = {
@@ -66,12 +70,14 @@ const addNewTeam = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
   }
 };
 
-const updateTeam = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
+const updateTeamMember = async (
+  repo: ApiParameters
+): Promise<GetApiDataResponse> => {
   const apiPath = getApiPath({
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/team-detail/${repo.endpoint}/`;
+  const api = `${apiPath}/team-member-detail/${repo.endpoint}/${repo.params}`;
   try {
     const token = repo?.session.access;
     const config: AxiosRequestConfig = {
@@ -95,43 +101,14 @@ const updateTeam = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
   }
 };
 
-const getSingleTeam = async (
+const deleteTeamMember = async (
   repo: ApiParameters
 ): Promise<GetApiDataResponse> => {
   const apiPath = getApiPath({
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/team-detail/${repo.endpoint}`;
-  try {
-    const token = repo?.session.access;
-    const config: AxiosRequestConfig = {
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    };
-    const response = await getData(api, config);
-
-    return {
-      name: repo.name,
-      status: "success",
-      data: response.data,
-    };
-  } catch (error) {
-    return {
-      name: repo.name,
-      status: "failure",
-      data: error,
-    };
-  }
-};
-
-const deleteTeam = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
-  const apiPath = getApiPath({
-    apiRoute: "service",
-  });
-
-  const api = `${apiPath}/team-detail/${repo.endpoint}`;
+  const api = `${apiPath}/team-member-detail/${repo.endpoint}/${repo.params}`;
   try {
     const token = repo?.session.access;
     const config: AxiosRequestConfig = {
@@ -155,4 +132,4 @@ const deleteTeam = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
   }
 };
 
-export { listTeams, addNewTeam, updateTeam, getSingleTeam, deleteTeam };
+export { getTeamMember, addTeamMember, updateTeamMember, deleteTeamMember };

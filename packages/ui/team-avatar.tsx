@@ -8,7 +8,7 @@ const TeamAvatar: React.FC<any> = ({ teamMembers }) => {
             <img
               key={data.id}
               src={data.avatar}
-              className=" h-6 w-6 rounded-full bg-slate-100 ring-2 ring-white"
+              className="h-6 w-6 rounded-full bg-slate-100 ring-2 ring-white"
               loading="lazy"
               alt={data.member_name}
             />

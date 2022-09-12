@@ -1,15 +1,19 @@
 import { useState } from "react";
 import type { GetServerSideProps, NextPage } from "next";
+import Link from "next/link";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { unstable_getServerSession } from "next-auth";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { useRouter } from "next/router";
 
-const Login: NextPage = () => {
+const SignIn: NextPage = () => {
   const router = useRouter();
   const [data, setdata] = useState({ email: "", password: "" });
+  const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -29,8 +33,6 @@ const Login: NextPage = () => {
     }
   };
 
-  const disabled = data.email === "" && data.password === "";
-
   return (
     <>
       <Head>
@@ -38,54 +40,129 @@ const Login: NextPage = () => {
         <meta name="description" content="Login Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="mx-4 flex h-screen">
-        <div className="container mx-auto my-auto w-4/12 content-between rounded-lg bg-white px-6 py-4 shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800">
-          <form onSubmit={handleLogin}>
-            <label className="block">
-              <span className="mb-2 block text-base font-medium tracking-tight text-slate-900 dark:text-white">
-                Email Address
-              </span>
+      <div className="flex h-screen min-h-full items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
+          <div>
+            <img
+              className="mx-auto h-16 w-auto"
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/media/default/avatar.png`}
+              alt="My Company"
+            />
+            <h2 className="mt-4 text-center text-3xl font-bold tracking-tight text-gray-900">
+              Sign in to your account
+            </h2>
+          </div>
+          <form
+            className="mt-8 space-y-6"
+            action="#"
+            method="POST"
+            onSubmit={handleLogin}
+          >
+            <input type="hidden" name="remember" defaultValue="true" />
+            <div className="-space-y-px rounded-md shadow-sm">
+              <div className="mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <div className="relative mt-1 rounded-md shadow-sm">
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    autoComplete="email"
+                    required
+                    value={data.email}
+                    className="block w-full rounded-md border-gray-300 pl-2 pr-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder="you@example.com"
+                    onChange={(e) =>
+                      setdata({ ...data, email: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <div className="relative mt-1 rounded-md shadow-sm">
+                  <input
+                    id="password"
+                    name="password"
+                    type={visible ? "text" : "password"}
+                    autoComplete="current-password"
+                    required
+                    value={data.password}
+                    className="block w-full rounded-md border-gray-300 pl-2 pr-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder=""
+                    onChange={(e) =>
+                      setdata({ ...data, password: e.target.value })
+                    }
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 flex items-center hover:cursor-pointer"
+                    onClick={() => setVisible(!visible)}
+                  >
+                    {visible ? (
+                      <EyeSlashIcon className="h-10 w-10 border-transparent bg-transparent py-0 pl-2 pr-2 text-gray-500" />
+                    ) : (
+                      <EyeIcon className="h-10 w-10 border-transparent bg-transparent py-0 pl-2 pr-2 text-gray-500" />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
 
-              <input
-                type="text"
-                value={data.email}
-                className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder-slate-400 shadow-sm
-      invalid:border-pink-500 invalid:text-pink-600 focus:border-sky-500 focus:outline-none
-      focus:ring-1 focus:ring-sky-500 focus:invalid:border-pink-500 focus:invalid:ring-pink-500
-      disabled:border-slate-200 disabled:bg-slate-50
-      disabled:text-slate-500 disabled:shadow-none
-    "
-                onChange={(e) => setdata({ ...data, email: e.target.value })}
-              />
-            </label>
-            <label className="block">
-              <span className="mt-4 mb-2 block text-base font-medium tracking-tight text-slate-900 dark:text-white">
-                Password
-              </span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                />
+                <label
+                  htmlFor="remember-me"
+                  className="ml-2 block text-sm text-gray-900"
+                >
+                  Remember me
+                </label>
+              </div>
 
-              <input
-                type="password"
-                value={data.password}
-                className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder-slate-400 shadow-sm
-      invalid:border-pink-500 invalid:text-pink-600 focus:border-sky-500 focus:outline-none
-      focus:ring-1 focus:ring-sky-500 focus:invalid:border-pink-500 focus:invalid:ring-pink-500
-      disabled:border-slate-200 disabled:bg-slate-50
-      disabled:text-slate-500 disabled:shadow-none
-    "
-                onChange={(e) => setdata({ ...data, password: e.target.value })}
-              />
-            </label>
-            <button
-              className="mt-6 h-10 w-full rounded-md bg-black px-6 font-semibold text-white"
-              type="submit"
-              disabled={disabled}
-            >
-              {loading ? "Loading..." : "Sign in to account"}
-            </button>
+              <div className="text-sm">
+                <Link href={"/forgot-password"}>
+                  <a
+                    href="/forgot-password"
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Forgot your password?
+                  </a>
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <LockClosedIcon
+                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                    aria-hidden="true"
+                  />
+                </span>
+                {loading ? "Loading..." : "Sign in"}
+              </button>
+            </div>
           </form>
         </div>
       </div>
-      <Toaster />
     </>
   );
 };
@@ -99,9 +176,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     context.res.end();
     return { props: { session } };
   }
+
   return {
     props: {},
   };
 };
 
-export default Login;
+export default SignIn;
