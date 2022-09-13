@@ -13,7 +13,7 @@ const listTeams = async (repo: ApiParameters): Promise<GetApiDataResponse> => {
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/team/prakashpun/`;
+  const api = `${apiPath}/team/`;
   try {
     const token = repo?.session.access;
     const config: AxiosRequestConfig = {

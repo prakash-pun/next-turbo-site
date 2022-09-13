@@ -7,6 +7,7 @@
       "@context": ["context/index.tsx"],
       "@helpers": ["helpers/index.ts"],
       "@hoc": ["hoc/index.tsx"],
+      "@hooks": ["hooks/index.tsx"],
       "@services": ["services/index.ts"],
       "@interfaces": ["interfaces/index.ts"]
     }

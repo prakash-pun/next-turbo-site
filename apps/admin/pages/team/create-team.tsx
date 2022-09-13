@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import { withDashboard } from "@hoc";
-import { NewTeamForm } from "@components";
 import { useRouter } from "next/router";
-import { addNewTeam } from "@services";
 import { handleError, successMessage } from "@helpers";
+import { NewTeamForm } from "@components";
+import { addNewTeam } from "@services";
+import { withDashboard } from "@hoc";
+import Head from "next/head";
 
 const INITIALDATA = {
   team_name: "",
@@ -37,13 +38,19 @@ const CreateTeam = () => {
   };
 
   return (
-    <div>
-      <NewTeamForm
-        initialData={INITIALDATA}
-        loading={loading}
-        onSubmit={onSubmit}
-      />
-    </div>
+    <>
+      <Head>
+        <title>Create Team - Prakash Pun</title>
+        <meta name="description" content="Prakash Pun Create Team Page" />
+      </Head>
+      <div>
+        <NewTeamForm
+          initialData={INITIALDATA}
+          loading={loading}
+          onSubmit={onSubmit}
+        />
+      </div>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.25.0",
     "@headlessui/react": "^1.7.0",
     "@heroicons/react": "^2.0.10",
     "formik": "^2.2.9",
@@ -16,7 +17,9 @@
     "next-auth": "^4.10.3",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.2",
     "react-hot-toast": "^2.3.0",
     "sass": "^1.54.8",
     "ui": "*",

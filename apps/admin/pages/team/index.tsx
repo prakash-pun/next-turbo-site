@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { Dropdown, SlideOver } from "@components";
@@ -7,9 +8,8 @@ import { listTeams } from "@services";
 import { withDashboard } from "@hoc";
 import { requireAuth } from "@auth";
 import { TeamAvatar } from "ui";
-import { useRouter } from "next/router";
 
-const Teams: NextPage<any> = ({ teams }) => {
+const Teams: NextPage<ITeamProps> = ({ teams }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [members, setMembers] = useState([]);
@@ -29,9 +29,8 @@ const Teams: NextPage<any> = ({ teams }) => {
   return (
     <>
       <Head>
-        <title>Prakash Pun - Home</title>
-        <meta name="description" content="Prakash Pun - Home" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Team - Prakash Pun</title>
+        <meta name="description" content="Prakash Pun Team Pages" />
       </Head>
 
       <main>
@@ -81,7 +80,7 @@ const Teams: NextPage<any> = ({ teams }) => {
           </header>
           <ul className="grid grid-cols-1 gap-4 p-4 text-sm leading-6 sm:grid-cols-2 sm:px-8 sm:pt-6 sm:pb-8 lg:grid-cols-1 lg:p-4 xl:grid-cols-2 xl:px-8 xl:pt-6 xl:pb-8">
             {teams && teams?.length
-              ? teams.map((data: any) => (
+              ? teams.map((data) => (
                   <li key={data.id}>
                     <div className="group flex w-full flex-col rounded-md border-2 border-slate-300 p-3 py-3 text-sm font-medium leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 hover:border-solid hover:border-blue-500  hover:bg-blue-500 hover:shadow-md hover:ring-blue-500">
                       <dl className="grid grid-cols-2 grid-rows-1 items-center">
@@ -96,8 +95,10 @@ const Teams: NextPage<any> = ({ teams }) => {
                           <dd className="flex justify-end group-hover:text-blue-200">
                             <Dropdown
                               handleView={() => handleOpen(data)}
-                              editTeam={() => editTeam(data.slug)}
-                              addTeamMember={() => addTeamMember(data.slug)}
+                              editTeam={() => editTeam(data?.slug || "")}
+                              addTeamMember={() =>
+                                addTeamMember(data?.slug || "")
+                              }
                             />
                           </dd>
                         </div>
