@@ -1,7 +1,8 @@
 import { useFormik } from "formik";
 import { LoadingButton } from "ui";
+import { AvatarUpload } from "./avatar-upload";
 
-export const NewTeamForm: React.FC<IAddEditTeam> = ({
+export const TeamMemberForm: React.FC<IAddEditTeamMember> = ({
   header,
   initialData,
   loading,
@@ -13,33 +14,41 @@ export const NewTeamForm: React.FC<IAddEditTeam> = ({
       onSubmit(values, () => formik.resetForm());
     },
   });
-
   return (
     <>
       <div className="mt-2">
         <h3 className="text-lg font-medium leading-6 text-gray-200">
-          {header ? header : "New Team"}
+          {header ? header : "New Team Member"}
         </h3>
         <div className="mt-2">
           <form onSubmit={formik.handleSubmit}>
             <div className="shadow sm:overflow-hidden sm:rounded-md">
               <div className="space-y-6 bg-gray-700 px-4 py-5 sm:p-6">
+                <div>
+                  <label className="block text-sm font-medium text-white">
+                    Avatar
+                  </label>
+                  <AvatarUpload />
+                  <p className="mt-2 text-sm text-gray-400">
+                    Drag and drop you image.
+                  </p>
+                </div>
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
                     <label
-                      htmlFor="team_name"
+                      htmlFor="member_name"
                       className="block text-sm font-medium text-white"
                     >
-                      Team Name
+                      Member Name
                     </label>
                     <input
                       type="text"
-                      name="team_name"
-                      id="team_name"
+                      name="member_name"
+                      id="member_name"
                       required
+                      autoComplete="member_name"
                       onChange={formik.handleChange}
-                      value={formik.values.team_name}
-                      autoComplete="given-name"
+                      value={formik.values.member_name}
                       className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -71,26 +80,62 @@ export const NewTeamForm: React.FC<IAddEditTeam> = ({
 
                 <div>
                   <label
-                    htmlFor="description"
+                    htmlFor="position"
                     className="block text-sm font-medium text-white"
                   >
-                    Description
+                    Position
                   </label>
                   <div className="mt-1">
-                    <textarea
-                      id="description"
-                      name="description"
-                      rows={3}
+                    <input
+                      type="text"
+                      name="position"
+                      id="position"
                       required
                       onChange={formik.handleChange}
-                      value={formik.values.description}
+                      value={formik.values.position}
+                      autoComplete="given-name"
                       className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      placeholder="you@example.com"
                     />
                   </div>
                   <p className="mt-2 text-sm text-gray-400">
-                    Brief description for your team. URLs are hyperlinked.
+                    Position at the team.
                   </p>
+                </div>
+                <div className="grid grid-cols-6 gap-6">
+                  <div className="col-span-6 sm:col-span-3">
+                    <label
+                      htmlFor="github_username"
+                      className="block text-sm font-medium text-white"
+                    >
+                      Github Username
+                    </label>
+                    <input
+                      type="text"
+                      name="github_username"
+                      id="github_username"
+                      autoComplete="given-name"
+                      onChange={formik.handleChange}
+                      value={formik.values.github_username}
+                      className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-3">
+                    <label
+                      htmlFor="linkedln_username"
+                      className="block text-sm font-medium text-white"
+                    >
+                      Linkedln Username
+                    </label>
+                    <input
+                      type="text"
+                      name="linkedln_username"
+                      id="linkedln_username"
+                      autoComplete="given-name"
+                      onChange={formik.handleChange}
+                      value={formik.values.linkedln_username}
+                      className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="bg-gray-600 px-4 py-3 text-right sm:px-6">

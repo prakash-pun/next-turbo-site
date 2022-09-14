@@ -16,8 +16,8 @@ const Profile = () => {
         <meta name="description" content="Profile - Prakash Pun" />
         <meta name="keywords" content="Prakash Pun's Profile" />
       </Head>
-      <div className="mt-6 pb-2 md:grid md:grid-cols-5 md:gap-12">
-        <div className="md:col-span-1">
+      <div className="mt-6 h-[calc(100vh-89px)] pb-2 md:grid md:grid-cols-5 md:gap-12">
+        <div className="flex w-full flex-col items-center md:col-span-1 md:items-stretch">
           <div className="h-28 w-28 rounded-full bg-slate-100 ring-2 ring-white">
             <Image
               src={user.avatar || ""}

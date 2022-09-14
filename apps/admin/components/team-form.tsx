@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { LoadingButton } from "ui";
 
-export const NewTeamMemberForm: React.FC<IAddEditTeamMember> = ({
+export const TeamForm: React.FC<IAddEditTeam> = ({
   header,
   initialData,
   loading,
@@ -13,60 +13,40 @@ export const NewTeamMemberForm: React.FC<IAddEditTeamMember> = ({
       onSubmit(values, () => formik.resetForm());
     },
   });
+
   return (
     <>
       <div className="mt-2">
         <h3 className="text-lg font-medium leading-6 text-gray-200">
-          {header ? header : "New Team Member"}
+          {header ? header : "New Team"}
         </h3>
         <div className="mt-2">
           <form onSubmit={formik.handleSubmit}>
             <div className="shadow sm:overflow-hidden sm:rounded-md">
               <div className="space-y-6 bg-gray-700 px-4 py-5 sm:p-6">
-                <div>
-                  <label className="block text-sm font-medium text-white">
-                    Avatar
-                  </label>
-                  <div className="mt-1 flex items-center">
-                    <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-                      <svg
-                        className="h-full w-full text-gray-300"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                      </svg>
-                    </span>
-                    <button
-                      type="button"
-                      className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      Change
-                    </button>
-                  </div>
-                </div>
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
                     <label
-                      htmlFor="member_name"
+                      htmlFor="team_name"
                       className="block text-sm font-medium text-white"
                     >
-                      Member Name
+                      Team Name
                     </label>
                     <input
                       type="text"
-                      name="member_name"
-                      id="member_name"
-                      autoComplete="given-name"
+                      name="team_name"
+                      id="team_name"
+                      required
                       onChange={formik.handleChange}
-                      value={formik.values.member_name}
+                      value={formik.values.team_name}
+                      autoComplete="given-name"
                       className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
                     <label
-                      htmlFor="company-website"
+                      htmlFor="website"
                       className="block text-sm font-medium text-white"
                     >
                       Website
@@ -77,8 +57,11 @@ export const NewTeamMemberForm: React.FC<IAddEditTeamMember> = ({
                       </span>
                       <input
                         type="text"
-                        name="company-website"
-                        id="company-website"
+                        name="website"
+                        id="website"
+                        required
+                        onChange={formik.handleChange}
+                        value={formik.values.website}
                         className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 bg-gray-700 text-white focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="www.example.com"
                       />
@@ -88,57 +71,26 @@ export const NewTeamMemberForm: React.FC<IAddEditTeamMember> = ({
 
                 <div>
                   <label
-                    htmlFor="position"
+                    htmlFor="description"
                     className="block text-sm font-medium text-white"
                   >
-                    Position
+                    Description
                   </label>
                   <div className="mt-1">
-                    <input
-                      type="text"
-                      name="position"
-                      id="position"
+                    <textarea
+                      id="description"
+                      name="description"
+                      rows={3}
+                      required
                       onChange={formik.handleChange}
-                      value={formik.values.position}
-                      autoComplete="given-name"
+                      value={formik.values.description}
                       className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      placeholder="you@example.com"
                     />
                   </div>
                   <p className="mt-2 text-sm text-gray-400">
-                    Position at the team.
+                    Brief description for your team. URLs are hyperlinked.
                   </p>
-                </div>
-                <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6 sm:col-span-3">
-                    <label
-                      htmlFor="team-name"
-                      className="block text-sm font-medium text-white"
-                    >
-                      Github Username
-                    </label>
-                    <input
-                      type="text"
-                      name="team-name"
-                      id="team-name"
-                      autoComplete="given-name"
-                      className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                  <div className="col-span-6 sm:col-span-3">
-                    <label
-                      htmlFor="team-name"
-                      className="block text-sm font-medium text-white"
-                    >
-                      Linkedln Username
-                    </label>
-                    <input
-                      type="text"
-                      name="team-name"
-                      id="team-name"
-                      autoComplete="given-name"
-                      className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
                 </div>
               </div>
               <div className="bg-gray-600 px-4 py-3 text-right sm:px-6">

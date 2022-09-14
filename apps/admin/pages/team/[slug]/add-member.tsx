@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { handleError, successMessage } from "@helpers";
-import { NewTeamMemberForm } from "@components";
+import { TeamMemberForm } from "@components";
 import { addTeamMember } from "@services";
 import { withDashboard } from "@hoc";
 
@@ -43,7 +43,7 @@ const AddMember = () => {
         <title>Add Member - Prakash Pun</title>
       </Head>
       <div>
-        <NewTeamMemberForm
+        <TeamMemberForm
           initialData={INITIALDATA}
           onSubmit={onSubmit}
           loading={loading}

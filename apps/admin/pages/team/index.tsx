@@ -35,7 +35,7 @@ const Teams: NextPage<ITeamProps> = ({ teams }) => {
 
       <main>
         <section>
-          <header className="space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-1">
+          <header className="space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-3">
             <div className="flex items-center justify-between">
               <h2 className="font-semibold text-slate-200">Teams</h2>
               <Link href={"/team/create-team"}>
