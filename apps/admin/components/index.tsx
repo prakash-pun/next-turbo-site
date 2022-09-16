@@ -7,3 +7,4 @@ export * from "./slide-over";
 export * from "./team-form";
 export * from "./member-form";
 export * from "./skeleton-loading";
+export * from "./modal";

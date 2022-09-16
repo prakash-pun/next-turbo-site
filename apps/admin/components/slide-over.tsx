@@ -1,12 +1,45 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   XMarkIcon,
   ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
+import { deleteTeamMember } from "@services";
+import { handleError, successMessage } from "@helpers";
+import { Modal } from "./modal";
 
 export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
+  const { data: session } = useSession();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [_data, setData] = useState<any>({});
+
+  const onRemoveClick = (data: any) => {
+    setData(data);
+    setModalOpen(true);
+  };
+
+  const handleRemove = async () => {
+    if (_data) {
+      const payload = {
+        name: "Delete Member",
+        endpoint: _data.id,
+        session: session,
+      };
+
+      const response = await deleteTeamMember(payload);
+      if (response.status === "success") {
+        successMessage("Member Deleted Successfully!");
+        setData({});
+        setModalOpen(false);
+        setOpen(false);
+      } else {
+        handleError(response.data);
+      }
+    }
+  };
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -88,6 +121,9 @@ export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
                                         <div className="flex">
                                           <button
                                             type="button"
+                                            onClick={() =>
+                                              onRemoveClick(member)
+                                            }
                                             className="font-medium text-indigo-600 hover:text-indigo-500"
                                           >
                                             Remove
@@ -165,6 +201,11 @@ export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
             </div>
           </div>
         </div>
+        <Modal
+          open={modalOpen}
+          setOpen={setModalOpen}
+          handleRemove={handleRemove}
+        />
       </Dialog>
     </Transition.Root>
   );

@@ -35,7 +35,9 @@ type IAddEditTeamMember = {
   header?: string;
   initialData: ITeamMember;
   loading: boolean;
-  onSubmit: (data: ITeamMember, fn: () => void) => void;
+  newMember?: boolean;
+  onSubmit: (data: any, fn: () => void) => void;
+  onChangeAvatar?: any;
 };
 
 type ITeamProps = {

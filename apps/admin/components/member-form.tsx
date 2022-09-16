@@ -7,13 +7,38 @@ export const TeamMemberForm: React.FC<IAddEditTeamMember> = ({
   initialData,
   loading,
   onSubmit,
+  newMember,
+  onChangeAvatar,
 }) => {
   const formik = useFormik({
     initialValues: initialData,
     onSubmit: (values) => {
-      onSubmit(values, () => formik.resetForm());
+      if (newMember) {
+        let data = new FormData();
+        data.append("member_name", values.member_name);
+        data.append("website", values.website || "");
+        data.append("position", values.position || "");
+        data.append("github_username", values.github_username || "");
+        data.append("linkedln_username", values.linkedln_username || "");
+        data.append("avatar", values?.avatar || "");
+        onSubmit(data, () => formik.resetForm());
+      } else {
+        delete values.avatar;
+        onSubmit(values, () => formik.resetForm());
+      }
     },
   });
+
+  const handleImageUpload = (file: File) => {
+    if (newMember) {
+      formik.setFieldValue("avatar", file);
+    } else {
+      let data = new FormData();
+      data.append("avatar", file);
+      onChangeAvatar(data);
+    }
+  };
+
   return (
     <>
       <div className="mt-2">
@@ -28,7 +53,10 @@ export const TeamMemberForm: React.FC<IAddEditTeamMember> = ({
                   <label className="block text-sm font-medium text-white">
                     Avatar
                   </label>
-                  <AvatarUpload />
+                  <AvatarUpload
+                    handleImage={handleImageUpload}
+                    avatar={initialData.avatar}
+                  />
                   <p className="mt-2 text-sm text-gray-400">
                     Drag and drop you image.
                   </p>
@@ -68,7 +96,6 @@ export const TeamMemberForm: React.FC<IAddEditTeamMember> = ({
                         type="text"
                         name="website"
                         id="website"
-                        required
                         onChange={formik.handleChange}
                         value={formik.values.website}
                         className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 bg-gray-700 text-white focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"

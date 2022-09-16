@@ -36,7 +36,6 @@ const UpdateMember = () => {
   }, [router.query.id, session]);
 
   const onSubmit = async (_data: ITeamMember, fn: () => void) => {
-    delete _data.avatar;
     setLoading(true);
     const payload = {
       name: "Update Team Member",
@@ -47,12 +46,27 @@ const UpdateMember = () => {
     const response = await updateTeamMember(payload);
     if (response.status === "success") {
       setLoading(false);
-      successMessage("Team Updated Successfully!");
+      successMessage("Team Member Updated Successfully!");
       router.push("/team");
       fn();
     } else {
       handleError(response.data);
       setLoading(false);
+    }
+  };
+
+  const onChangeAvatar = async (_data: ITeamMember) => {
+    const payload = {
+      name: "Update Team Member",
+      data: _data,
+      session: session,
+      endpoint: router.query.id,
+    };
+    const response = await updateTeamMember(payload);
+    if (response.status === "success") {
+      successMessage("Avatar Updated Successfully!");
+    } else {
+      handleError(response.data);
     }
   };
 
@@ -70,6 +84,7 @@ const UpdateMember = () => {
           <TeamMemberForm
             initialData={initialData}
             onSubmit={onSubmit}
+            onChangeAvatar={onChangeAvatar}
             header={"Update Team"}
             loading={loading}
           />

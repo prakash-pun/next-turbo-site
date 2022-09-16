@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import { Dropdown, SlideOver } from "@components";
+import { Dropdown, Modal, SlideOver } from "@components";
 import { listTeams } from "@services";
 import { withDashboard } from "@hoc";
 import { requireAuth } from "@auth";

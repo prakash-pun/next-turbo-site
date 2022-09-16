@@ -10,6 +10,9 @@ import { withDashboard } from "@hoc";
 const INITIALDATA = {
   member_name: "",
   position: "",
+  website: "",
+  github_username: "",
+  linkedln_username: "",
 };
 
 const AddMember = () => {
@@ -47,6 +50,7 @@ const AddMember = () => {
           initialData={INITIALDATA}
           onSubmit={onSubmit}
           loading={loading}
+          newMember={true}
         />
       </div>
     </>

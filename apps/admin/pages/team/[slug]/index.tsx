@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { SkletonLoading } from "@components";
+import { SkeletonLoading } from "@components";
 import { useTeamDetail } from "@hooks";
 import { withDashboard } from "@hoc";
 
@@ -78,7 +78,7 @@ const TeamDetail = () => {
           </div>
         </div>
       ) : (
-        <SkletonLoading />
+        <SkeletonLoading />
       )}
     </>
   );

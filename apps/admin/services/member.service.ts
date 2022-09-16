@@ -111,12 +111,13 @@ const deleteTeamMember = async (
   const api = `${apiPath}/team-member-detail/${repo.endpoint}/`;
   try {
     const token = repo?.session.access;
+
     const config: AxiosRequestConfig = {
       headers: {
         Authorization: `JWT ${token}`,
       },
     };
-    const response = await deleteData(api, config);
+    const response = await deleteData(api, {}, config);
 
     return {
       name: repo.name,

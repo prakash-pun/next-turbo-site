@@ -40,3 +40,12 @@ export const handleError = (err: any, showToast = true): void => {
     toast.error(err.detail);
   }
 };
+
+export const handleUploadError = (errors: any) => {
+  const error = errors?.errors;
+  if (error) {
+    error.forEach((element: any) => {
+      toast.error(element.message);
+    });
+  }
+};
