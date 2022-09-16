@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { ChartBarIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
+import {
+  ChartBarIcon,
+  Squares2X2Icon,
+  DocumentTextIcon,
+} from "@heroicons/react/24/outline";
 
 const solutions = [
   {
@@ -13,14 +17,16 @@ const solutions = [
     href: "/projects",
     icon: Squares2X2Icon,
   },
+  {
+    name: "Blog",
+    href: "/blog",
+    icon: DocumentTextIcon,
+  },
 ];
 
 const Sidebar = () => {
   return (
-    <div
-      style={{ height: "calc(100vh - 90px)" }}
-      className="hidden md:block md:space-x-8 md:pr-4"
-    >
+    <div className="hidden h-[calc(100vh-89px)] md:block md:space-x-8 md:pr-4">
       <div className="mt-6">
         <nav className="grid gap-y-8">
           {solutions.map((item) => (

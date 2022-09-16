@@ -15,7 +15,7 @@ const getTeamMember = async (
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/team-member-detail/${repo?.endpoint}/${repo?.params}`;
+  const api = `${apiPath}/team-member-detail/${repo?.endpoint}/`;
   try {
     const token = repo?.session.access;
     const config: AxiosRequestConfig = {
@@ -46,7 +46,7 @@ const addTeamMember = async (
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/team-member/${repo.endpoint}`;
+  const api = `${apiPath}/team-member/${repo.endpoint}/`;
   try {
     const token = repo?.session.access;
     const config: AxiosRequestConfig = {
@@ -77,7 +77,7 @@ const updateTeamMember = async (
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/team-member-detail/${repo.endpoint}/${repo.params}`;
+  const api = `${apiPath}/team-member-detail/${repo.endpoint}/`;
   try {
     const token = repo?.session.access;
     const config: AxiosRequestConfig = {
@@ -108,15 +108,16 @@ const deleteTeamMember = async (
     apiRoute: "service",
   });
 
-  const api = `${apiPath}/team-member-detail/${repo.endpoint}/${repo.params}`;
+  const api = `${apiPath}/team-member-detail/${repo.endpoint}/`;
   try {
     const token = repo?.session.access;
+
     const config: AxiosRequestConfig = {
       headers: {
         Authorization: `JWT ${token}`,
       },
     };
-    const response = await deleteData(api, config);
+    const response = await deleteData(api, {}, config);
 
     return {
       name: repo.name,

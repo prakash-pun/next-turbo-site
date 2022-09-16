@@ -7,13 +7,14 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { UserContext } from "@context";
 import { classNames } from "utils";
-import { UserContext } from "../context";
 
 const navigation = {
   pages: [
     { name: "Team", href: "/team", current: false },
     { name: "Projects", href: "/projects", current: false },
+    { name: "Blog", href: "/blog", current: false },
   ],
 };
 

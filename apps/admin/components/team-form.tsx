@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { LoadingButton } from "ui";
 
-export const NewTeamForm: React.FC<IAddEditTeam> = ({
+export const TeamForm: React.FC<IAddEditTeam> = ({
   header,
   initialData,
   loading,
@@ -36,6 +36,7 @@ export const NewTeamForm: React.FC<IAddEditTeam> = ({
                       type="text"
                       name="team_name"
                       id="team_name"
+                      required
                       onChange={formik.handleChange}
                       value={formik.values.team_name}
                       autoComplete="given-name"
@@ -58,6 +59,7 @@ export const NewTeamForm: React.FC<IAddEditTeam> = ({
                         type="text"
                         name="website"
                         id="website"
+                        required
                         onChange={formik.handleChange}
                         value={formik.values.website}
                         className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 bg-gray-700 text-white focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -79,6 +81,7 @@ export const NewTeamForm: React.FC<IAddEditTeam> = ({
                       id="description"
                       name="description"
                       rows={3}
+                      required
                       onChange={formik.handleChange}
                       value={formik.values.description}
                       className="mt-1 block w-full rounded-md border-gray-300 bg-gray-700 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
