@@ -14,7 +14,7 @@ const navigation = {
   pages: [
     { name: "Team", href: "/team", current: false },
     { name: "Projects", href: "/projects", current: false },
-    { name: "Blog", href: "/blog", current: false },
+    { name: "Note", href: "/note", current: false },
   ],
 };
 

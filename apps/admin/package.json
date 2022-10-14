@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.25.0",
     "@headlessui/react": "^1.7.0",
     "@heroicons/react": "^2.0.10",
     "formik": "^2.2.9",

@@ -18,8 +18,8 @@ const solutions = [
     icon: Squares2X2Icon,
   },
   {
-    name: "Blog",
-    href: "/blog",
+    name: "Note",
+    href: "/note",
     icon: DocumentTextIcon,
   },
 ];
