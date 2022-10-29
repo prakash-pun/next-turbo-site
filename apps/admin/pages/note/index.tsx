@@ -1,5 +1,5 @@
-import { withDashboard } from "@hoc";
 import React from "react";
+import { withDashboard } from "@hoc";
 
 const Note = () => {
   return <div className=" text-cyan-400">Note</div>;
