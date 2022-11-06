@@ -85,12 +85,6 @@ const Home: NextPage = () => {
         </svg>
       </div>
       <div className="title-text">😀😁😎</div>
-      {/* {quotes && (
-        <blockquote className="quote">
-          &ldquo;{quotes.content}&rdquo; &mdash;
-          <footer>{quotes.author}</footer>
-        </blockquote>
-      )} */}
 
       <div className="social-icon">
         <div className="github-icon">
