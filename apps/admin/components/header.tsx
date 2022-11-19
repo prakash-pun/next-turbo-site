@@ -70,7 +70,7 @@ export const Header: React.FC<any> = ({ signOut }) => {
                 <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
-                      <Link href={page.href}>
+                      <Link href={page.href} legacyBehavior>
                         <a
                           href={page.href}
                           className={classNames(
@@ -87,7 +87,7 @@ export const Header: React.FC<any> = ({ signOut }) => {
 
                 <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                   <div className="flow-root">
-                    <Link href={"/settings"}>
+                    <Link href={"/settings"} legacyBehavior>
                       <a
                         href="#"
                         className="-m-2 block p-2 font-medium text-gray-900"
@@ -97,7 +97,7 @@ export const Header: React.FC<any> = ({ signOut }) => {
                     </Link>
                   </div>
                   <div className="flow-root">
-                    <Link href={"/profile"}>
+                    <Link href={"/profile"} legacyBehavior>
                       <a
                         href="/profile"
                         className="-m-2 block p-2 font-medium text-gray-900"
@@ -131,7 +131,7 @@ export const Header: React.FC<any> = ({ signOut }) => {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <Link href={"/"}>
+                <Link href={"/"} legacyBehavior>
                   <a href="/">
                     <span className="sr-only">Your Company</span>
                     <img
@@ -204,7 +204,7 @@ export const Header: React.FC<any> = ({ signOut }) => {
                       {userNavigation.map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
-                            <Link href={item.href}>
+                            <Link href={item.href} legacyBehavior>
                               <a
                                 onClick={item.name === "Sign out" && signOut}
                                 href={item.href}

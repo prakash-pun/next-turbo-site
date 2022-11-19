@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { handleError, successMessage } from "@helpers";
-import { NewTeamForm } from "@components";
+import { TeamForm } from "@components";
 import { addNewTeam } from "@services";
 import { withDashboard } from "@hoc";
 import Head from "next/head";
@@ -44,7 +44,7 @@ const CreateTeam = () => {
         <meta name="description" content="Prakash Pun Create Team Page" />
       </Head>
       <div>
-        <NewTeamForm
+        <TeamForm
           initialData={INITIALDATA}
           loading={loading}
           onSubmit={onSubmit}

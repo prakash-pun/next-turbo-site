@@ -30,7 +30,7 @@ const Sidebar = () => {
       <div className="mt-6">
         <nav className="grid gap-y-8">
           {solutions.map((item) => (
-            <Link href={item.href} key={item.name}>
+            <Link href={item.href} key={item.name} legacyBehavior>
               <a
                 key={item.name}
                 href={item.href}

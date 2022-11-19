@@ -17,7 +17,7 @@ const UserProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const [loadingInitial, setLoadingInitial] = useState<boolean>(true);
   const [userToggle, setUserToggle] = useState<boolean>(false);
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   useEffect(() => {
     if (session?.access) {

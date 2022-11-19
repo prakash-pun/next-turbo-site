@@ -1,4 +1,4 @@
-import { handleError, handleUploadError } from "@helpers";
+import { handleUploadError } from "@helpers";
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { classNames } from "utils";

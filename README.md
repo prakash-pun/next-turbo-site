@@ -32,7 +32,7 @@ This repository is used in the `npx create-turbo` command, and selected when cho
 
 To build all apps and packages, run the following command:
 
-```
+```bash
 cd my-turborepo
 yarn run build
 ```
@@ -41,7 +41,7 @@ yarn run build
 
 To develop all apps and packages, run the following command:
 
-```
+```bash
 cd my-turborepo
 yarn run dev
 ```
@@ -52,7 +52,7 @@ Turborepo can use a technique known as [Remote Caching](https://turborepo.org/do
 
 By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
-```
+```bash
 cd my-turborepo
 npx turbo login
 ```
@@ -61,7 +61,7 @@ This will authenticate the Turborepo CLI with your [Vercel account](https://verc
 
 Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
 
-```
+```bash
 npx turbo link
 ```
 
