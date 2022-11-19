@@ -134,7 +134,7 @@ const SignIn: NextPage = () => {
               </div>
 
               <div className="text-sm">
-                <Link href={"/forgot-password"}>
+                <Link href={"/forgot-password"} legacyBehavior>
                   <a
                     href="/forgot-password"
                     className="font-medium text-indigo-600 hover:text-indigo-500"

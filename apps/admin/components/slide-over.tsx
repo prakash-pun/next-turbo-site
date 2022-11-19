@@ -90,7 +90,10 @@ export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
                       </div>
 
                       <div className="mt-2">
-                        <Link href={`/team/${members.slug}/add-member`}>
+                        <Link
+                          href={`/team/${members.slug}/add-member`}
+                          legacyBehavior
+                        >
                           <a
                             href={`/team/${members.slug}/add-member`}
                             className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -137,6 +140,7 @@ export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
                                         <div className="flex">
                                           <Link
                                             href={`/team/${members.slug}/${member.id}`}
+                                            legacyBehavior
                                           >
                                             <a
                                               href={`/team/${members.slug}/${member.id}`}
@@ -172,7 +176,7 @@ export const SlideOver: React.FC<any> = ({ open, setOpen, members }) => {
                         {members.description || ""}
                       </p>
                       <div className="mt-4">
-                        <Link href={`/team/${members.slug}`}>
+                        <Link href={`/team/${members.slug}`} legacyBehavior>
                           <a
                             href={`/team/${members.slug}`}
                             className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"

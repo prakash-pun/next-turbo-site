@@ -54,7 +54,7 @@ const ForgotPassword: NextPage = () => {
 
             <div className="flex justify-end">
               <div className="text-sm">
-                <Link href={"/login"}>
+                <Link href={"/login"} legacyBehavior>
                   <a
                     href="/login"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
