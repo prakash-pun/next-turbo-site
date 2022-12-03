@@ -11,8 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.0",
     "@heroicons/react": "^2.0.10",
+    "@types/lodash.debounce": "^4.0.7",
     "eslint-config-next": "^13.0.2",
     "formik": "^2.2.9",
+    "lodash.debounce": "^4.0.8",
     "next": "^13.0.2",
     "next-auth": "^4.16.2",
     "nprogress": "^0.2.0",

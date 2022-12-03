@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { handleError, successMessage } from "@helpers";
 import { TeamForm } from "@components";
 import { addNewTeam } from "@services";
 import { withDashboard } from "@hoc";
-import Head from "next/head";
+import { requireAuth } from "@auth";
 
 const INITIALDATA = {
   team_name: "",
@@ -55,3 +56,7 @@ const CreateTeam = () => {
 };
 
 export default withDashboard(CreateTeam);
+
+export const getServerSideProps = requireAuth(async (ctx, session) => {
+  return { props: { session } };
+});
