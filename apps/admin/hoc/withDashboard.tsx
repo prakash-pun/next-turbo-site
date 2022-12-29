@@ -18,7 +18,7 @@ const withDashboard = (
 
     render(): React.ReactNode {
       return (
-        <div className="bg-gray-800">
+        <div className="">
           <Header signOut={this.handleSignout} />
           <div
             className={classNames(

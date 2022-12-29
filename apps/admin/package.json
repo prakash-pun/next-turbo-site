@@ -11,7 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.0",
     "@heroicons/react": "^2.0.10",
+    "@types/draft-js": "^0.11.10",
     "@types/lodash.debounce": "^4.0.7",
+    "axios": "^1.2.2",
+    "draft-js": "^0.11.7",
     "eslint-config-next": "^13.0.2",
     "formik": "^2.2.9",
     "lodash.debounce": "^4.0.8",

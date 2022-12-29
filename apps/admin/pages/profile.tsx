@@ -34,7 +34,7 @@ const Profile = () => {
             {user.username}
           </p>
           <div className="mt-2">
-            <Link href={"/settings"}>
+            <Link href={"/settings"} legacyBehavior>
               <a
                 href={"/settings"}
                 className="flex justify-center rounded-md border p-2 text-center"
